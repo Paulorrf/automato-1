@@ -1,0 +1,20 @@
+* {
+    list-style: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    line-height: 1.6rem;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin: 6rem auto;
+}
+
