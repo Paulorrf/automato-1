@@ -13,6 +13,7 @@ const reservedWords = [
 const printScreen = (arr, id) => {
   let ul = document.createElement("ul");
 
+  //obj
   if (id === "tokens") {
     arr.map((val) => {
       let li = document.createElement("li");
@@ -23,6 +24,7 @@ const printScreen = (arr, id) => {
     return;
   }
 
+  //arr
   arr.map((val) => {
     let li = document.createElement("li");
     li.innerHTML = val;
@@ -88,8 +90,7 @@ const verifyNum = (value) => {
 };
 
 const verifyComment = (value) => {
-  if (value[0] === "/" && value[1] === "/") return true;
-  return false;
+  return value[0] === "/" && value[1] === "/";
 };
 
 const request = async () => {
@@ -108,6 +109,7 @@ const request = async () => {
   let newFileContent = fileContent.filter((value) => {
     //é uma variavel
     if (verifyVariableOrReserved(value).isVar) {
+      //verifica se ja tem uma variavel com o mesmo nome
       for (let i = 0; i < tokens.length; i++) {
         if (tokens[i].value === value) {
           tokens.push({

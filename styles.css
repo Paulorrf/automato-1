@@ -8,13 +8,16 @@ ul {
 }
 
 li {
-    line-height: 1.6rem;
+    line-height: 1.8rem;
 }
 
 .container {
     display: flex;
     justify-content: space-around;
     width: 80%;
-    margin: 6rem auto;
+    margin: 4rem auto;
 }
 
+.nome {
+    text-align: center;
+}
