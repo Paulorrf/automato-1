@@ -93,7 +93,7 @@ const verifyComment = (value) => {
   return value[0] === "/" && value[1] === "/";
 };
 
-const request = async () => {
+const readFile = async () => {
   const response = await fetch("./testeSemi.txt");
   const data = await response.text();
   const fileContent = data.split(/\r?\n/);
@@ -101,7 +101,7 @@ const request = async () => {
   let errorItems = [];
   let symbols = [];
   let tokens = [];
-  let tokenCount = 1;
+  let lineCount = 1;
   let identCount = 1;
   let symbolsCount = 1;
 
@@ -115,9 +115,9 @@ const request = async () => {
           tokens.push({
             identCount: tokens[i].identCount,
             value,
-            msg: `[${tokenCount}] IDENTIFICADOR ${tokens[i].identCount}`,
+            msg: `[${lineCount}] IDENTIFICADOR ${tokens[i].identCount}`,
           });
-          tokenCount++;
+          lineCount++;
           return true;
         }
       }
@@ -126,14 +126,14 @@ const request = async () => {
       tokens.push({
         identCount,
         value,
-        msg: `[${tokenCount}] IDENTIFICADOR ${identCount}`,
+        msg: `[${lineCount}] IDENTIFICADOR ${identCount}`,
       });
 
       //adiciona na tabela de simbolos
       symbols.push(`${symbolsCount} - ${value}`);
 
       symbolsCount++;
-      tokenCount++;
+      lineCount++;
       identCount++;
       return true;
 
@@ -143,36 +143,36 @@ const request = async () => {
       tokens.push({
         identCount,
         value,
-        msg: `[${tokenCount}] ${value.toUpperCase()}`,
+        msg: `[${lineCount}] ${value.toUpperCase()}`,
       });
 
-      tokenCount++;
+      lineCount++;
       return true;
     } else if (verifyNum(value)) {
       tokens.push({
         identCount,
         value,
-        msg: `[${tokenCount}] NÚMERO ${
+        msg: `[${lineCount}] NÚMERO ${
           value % 1 === 0 ? "INTEIRO" : "REAL"
         } ${identCount}`,
       });
       symbols.push(`${symbolsCount} - ${value}`);
 
       symbolsCount++;
-      tokenCount++;
+      lineCount++;
       identCount++;
       return true;
     } else if (verifyComment(value)) {
       tokens.push({
         identCount,
         value,
-        msg: `[${tokenCount}] COMENTARIO`,
+        msg: `[${lineCount}] COMENTARIO`,
       });
-      tokenCount++;
+      lineCount++;
       return true;
     }
-    errorItems.push(`${tokenCount} (${value})`);
-    tokenCount++;
+    errorItems.push(`${lineCount} (${value})`);
+    lineCount++;
     return false;
   });
 
@@ -186,4 +186,4 @@ const request = async () => {
   // console.log(symbols);
 };
 
-request();
+readFile();
